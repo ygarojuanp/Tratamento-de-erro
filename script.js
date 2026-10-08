@@ -2,13 +2,27 @@ const form = document.querySelector('#formCadastro');
 const buscarCep = document.querySelector('#buscarCep');
 const cep = document.querySelector('#cep');
 
+function mensagem(texto, tipo = "sucesso"){
+    Toastify({
+        text: texto,
+        duration: 3000,
+        gravity: "top",
+        position: "rigth",
+        style: {
+            background: tipo === "sucesso"
+            ? " #198756"
+            :" #dc3545"
+        }
+    }) .showToast();
+}
+
 // ouvir evento de click do buscarCep
 buscarCep.addEventListener("click", async function(){
     // expressão regex: aceita apenas numeros, e o replace substitui o que não for numero por espaço vazio
     const valor = cep.value.replace(/\D/g, "");
     if(valor.length !== 8) {
-        alert("Digite um CEP valido");
-        return
+        mensagem("Por favor, digite um CEP válido com 8 dígitos.", "erro");
+        return;
     } try{
         const resposta = await fetch(`https://viacep.com.br/ws/${valor}/json/`);
         const dados = await resposta.json();
@@ -18,10 +32,10 @@ buscarCep.addEventListener("click", async function(){
         document.querySelector('#bairro').value = dados.bairro;
         document.querySelector('#estado').value = dados.estado;
         document.querySelector('#cidade').value = dados.localidade;
-        alert("endereço encontrado!");
+        mensagem("endereço encontrado!");
     
     } catch(erro) {
-        alert(erro, "erro");
+        mensagem(erro.mensagem, "erro");
     }
 
 });
