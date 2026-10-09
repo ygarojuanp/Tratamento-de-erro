@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,7 +14,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/toastify-js@1.12.0/src/toastify.min.js"></script>
-    
+
     <style>
         :root {
             --bs-primary: #365cf5;
@@ -62,6 +63,7 @@
         }
     </style>
 </head>
+
 <body>
     <header class="page-header py-5">
         <div class="container">
@@ -85,9 +87,8 @@
                             </div>
                             <div class="col-md-6">
                                 <label for="cpf" class="form-label required">CPF</label>
-                                <input type="text" class="form-control" id="cpf" name="cpf"
-                                    placeholder="000.000.000-00" inputmode="numeric"
-                                    autocomplete="off" maxlength="14" required>
+                                <input type="text" class="form-control" id="cpf" name="cpf" placeholder="000.000.000-00"
+                                    inputmode="numeric" autocomplete="off" maxlength="14" required>
                             </div>
                             <div class="col-md-6">
                                 <label for="email" class="form-label required">E-mail</label>
@@ -103,10 +104,9 @@
                             <div class="col-md-4 col-lg-3">
                                 <label for="cep" class="form-label required">CEP</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" id="cep" name="cep"
-                                        placeholder="00000-000" inputmode="numeric"
-                                        autocomplete="postal-code" maxlength="9" required>
-                                        <button class="btn btn btn-primary" id="buscarCep">Buscar</button>
+                                    <input type="text" class="form-control" id="cep" name="cep" placeholder="00000-000"
+                                        inputmode="numeric" autocomplete="postal-code" maxlength="9" required>
+                                    <button class="btn btn btn-primary" id="buscarCep">Buscar</button>
                                 </div>
                                 <div class="form-text">Informe o CEP e clique em buscar</div>
                             </div>
@@ -118,17 +118,23 @@
                             <div class="col-md-4 col-lg-2">
                                 <label for="numero" class="form-label required">Número</label>
                                 <input type="text" class="form-control" id="numero" name="numero"
-                                    placeholder="Ex.: 123" inputmode="numeric" autocomplete="address-line2" required>
+                                    placeholder="123 ou S/n" autocomplete="address-line2" required>
+                            </div>
+                            <div class="col-md-4 col-lg-2">
+                                <label for="complemento" class="form-label">Complemento</label>
+                                <input type="text" class="form-control" id="complemento" name="complemento"
+                                    placeholder="Casa A" autocomplete="address-line2">
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <label for="estado" class="form-label required">Estado</label>
+                                <select class="form-select" name="estado" id="estado" autocomplete="address-level1">
+                                    <option value="">Selecione o Estado</option>
+                                </select>
                             </div>
                             <div class="col-md-6 col-lg-4">
                                 <label for="bairro" class="form-label required">Bairro</label>
                                 <input type="text" class="form-control" id="bairro" name="bairro"
                                     placeholder="Digite o bairro" required>
-                            </div>
-                            <div class="col-md-6 col-lg-3">
-                                <label for="estado" class="form-label required">Estado</label>
-                                <input type="text" class="form-control" id="estado" name="estado"
-                                    placeholder="Digite o estado" autocomplete="address-level1" required>
                             </div>
                             <div class="col-md-6 col-lg-5">
                                 <label for="cidade" class="form-label required">Cidade</label>
@@ -150,4 +156,4 @@
     <script src="script.js" defer></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js@1.12.0/src/toastify.min.css">
 </body>
-</ht
+</html>
