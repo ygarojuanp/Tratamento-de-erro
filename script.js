@@ -2,45 +2,77 @@ const form = document.querySelector('#formCadastro');
 const buscarCep = document.querySelector('#buscarCep');
 const cep = document.querySelector('#cep');
 const estado = document.querySelector('#estado');
+const cidade = document.querySelector('#cidade');
 
 function mensagem(texto, tipo = "sucesso") {
     Toastify({
         text: texto,
         duration: 3000,
         gravity: "top",
-        position: "rigth",
+        position: "right",
         style: {
             background: tipo === "sucesso"
-            ? " #198756"
-            : " #dc3545"
+                ? " #198756"
+                : " #dc3545"
         }
     }).showToast();
 }
 
-
-// criar opções de seleção dinamicamnete
-function adicionarOpcao(select, texto, valor){
+function adicionarOpcao(select, texto, valor) {
+    if (!select) return;
     select.add(new Option(texto, valor));
 }
-// carregar os estados
 
 async function carregarEstados() {
     try {
-        const resposta = await fetch("https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome");
+        cidade.disabled = true;
+        const resposta = await fetch('https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome');
+
         if (!resposta.ok) {
             throw new Error("Não foi possivel carregar os Estados.");
         }
+
         const estados = await resposta.json();
         estados.forEach(item => adicionarOpcao(estado, item.nome, item.sigla));
-    } catch (erro) {}
+    } catch (erro) {
+        mensagem(erro.message || 'Erro ao carregar os estados.', 'erro');
+    }
 }
+
+//ouvir mudanças do estado para carregar as cidades
+estado.addEventListener("change", async function () {
+    cidade.replaceChildren(new Option("Carregando cidades...", ""));
+    cidade.disabled = true;
+    if(!estado.value){
+        cidade.replaceChildren(new Option("Selecione o estado primeiro", ""));
+        return;
+    }
+    try {
+        const resposta = await fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${estado.value}/municipios`);
+        if (!resposta.ok){
+            throw new Error("Não foi possivel carregar as cidades.");
+            
+        }
+        const cidades = await resposta.json();
+        cidade.replaceChildren(new Option("Selecione a Cidade."));
+        cidades.forEach(item => adicionarOpcao(cidade, item.nome, item.nome));
+        if(cidade.dataset.localidade) {
+            cidade.value = cidade.dataset.localidade;
+            delete cidade.dataset.localidade;                        
+        }
+        cidade.disabled = false;        
+        
+    } catch (error) {}
+    
+})
 
 carregarEstados();
 
-// ouvir evento de click do buscarCep
-buscarCep.addEventListener("click", async function () {
-    // expressão regex: aceita apenas numeros, e o replace substitui o que não for numero por espaço vazio
-    const valor = cep.value.replace(/\D/g, "");
+buscarCep.addEventListener('click', async function (event) {
+    event.preventDefault();
+
+    const valor = cep.value.replace(/\D/g, '');
+
     if (valor.length !== 8) {
         mensagem("Por favor, digite um CEP válido com 8 dígitos.", "erro");
         return;
@@ -57,15 +89,16 @@ buscarCep.addEventListener("click", async function () {
 
     } catch (erro) {
         mensagem(erro.mensagem, "erro");
+
     }
-    
 });
+
 
 //ouvir eventos
 form.addEventListener("submit", function (event) {
     event.preventDefault();
     console.log(Object.fromEntries([...form.elements].filter(Element => Element.id).map(Element => [Element.id, Element.value])));
-    
+
     form.reset();
 });
 

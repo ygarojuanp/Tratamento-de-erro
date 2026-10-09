@@ -106,7 +106,7 @@
                                 <div class="input-group">
                                     <input type="text" class="form-control" id="cep" name="cep" placeholder="00000-000"
                                         inputmode="numeric" autocomplete="postal-code" maxlength="9" required>
-                                    <button class="btn btn btn-primary" id="buscarCep">Buscar</button>
+                                    <button type="button" class="btn btn btn-primary" id="buscarCep">Buscar</button>
                                 </div>
                                 <div class="form-text">Informe o CEP e clique em buscar</div>
                             </div>
@@ -132,14 +132,16 @@
                                 </select>
                             </div>
                             <div class="col-md-6 col-lg-4">
+                                <label for="cidade" class="form-label required">Cidade</label>
+                                <select class="form-select" name="cidade" id="cidade" autocomplete="address-level">
+                                    <option value="">Selecione o estado primeiro</option>
+                                </select>
+
+                            </div>
+                            <div class="col-md-6 col-lg-4">
                                 <label for="bairro" class="form-label required">Bairro</label>
                                 <input type="text" class="form-control" id="bairro" name="bairro"
                                     placeholder="Digite o bairro" required>
-                            </div>
-                            <div class="col-md-6 col-lg-5">
-                                <label for="cidade" class="form-label required">Cidade</label>
-                                <input type="text" class="form-control" id="cidade" name="cidade"
-                                    placeholder="Digite a cidade" autocomplete="address-level2" required>
                             </div>
                         </div>
                     </section>
@@ -156,4 +158,5 @@
     <script src="script.js" defer></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js@1.12.0/src/toastify.min.css">
 </body>
+
 </html>
